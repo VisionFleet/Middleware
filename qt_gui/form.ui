@@ -1,0 +1,612 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ui version="4.0">
+ <class>AgvRemoteForm</class>
+ <widget class="QWidget" name="AgvRemoteForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>760</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>AGV 5-Node Dynamic Reroute Controller</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <item>
+    <layout class="QHBoxLayout" name="headerLayout">
+     <item>
+      <widget class="QLabel" name="titleLabel">
+       <property name="text">
+        <string>🤖 AGV 원격제어기</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="headerSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelMqtt">
+       <property name="minimumSize">
+        <size>
+         <width>360</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>MQTT: 연결 안 됨</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="bodyLayout">
+     <item>
+      <widget class="QFrame" name="leftPanel">
+       <property name="minimumSize">
+        <size>
+         <width>320</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>360</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <layout class="QVBoxLayout" name="leftPanelLayout">
+        <item>
+         <widget class="QLabel" name="sectionTitle">
+          <property name="text">
+           <string>1. AGV 선택</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnAgv1">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>52</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>AGV_01</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnAgv2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>52</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>AGV_02</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnBoth">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>52</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>AGV_01 + AGV_02 동시 제어</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelSelected">
+          <property name="text">
+           <string>선택 대상: AGV_01</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="sectionTitle">
+          <property name="text">
+           <string>2. 수동 제어</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="directionLayout">
+          <item row="0" column="1">
+           <widget class="QPushButton" name="btnForward">
+            <property name="minimumSize">
+             <size>
+              <width>82</width>
+              <height>64</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>▲</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="btnLeft">
+            <property name="minimumSize">
+             <size>
+              <width>82</width>
+              <height>64</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>◀</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="btnStop">
+            <property name="minimumSize">
+             <size>
+              <width>82</width>
+              <height>64</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>정지</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="btnRight">
+            <property name="minimumSize">
+             <size>
+              <width>82</width>
+              <height>64</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>▶</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="btnBackward">
+            <property name="minimumSize">
+             <size>
+              <width>82</width>
+              <height>64</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>▼</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="sectionTitle">
+          <property name="text">
+           <string>3. 긴급 정지</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnEmergency">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>64</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>⚠ 긴급 정지 ALL</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="sectionTitle">
+          <property name="text">
+           <string>4. 트랙 운영 상태</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnTrackRemoved">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>56</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>AGV를 실제로 트랙 밖으로 옮긴 뒤에만 누르세요. 점유와 예약을 해제하고 자동 운행을 중지합니다.</string>
+          </property>
+          <property name="text">
+           <string>트랙에서 제거 완료</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="sectionTitle">
+          <property name="text">
+           <string>5. 제어 설정</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="speedLayout">
+          <item>
+           <widget class="QLabel" name="speedLabel">
+            <property name="text">
+             <string>속도</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="speedSlider">
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="value">
+             <number>50</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="speedSpin">
+            <property name="decimals">
+             <number>2</number>
+            </property>
+            <property name="minimum">
+             <double>0.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>1.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.500000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="leftSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="rightLayout">
+       <item>
+        <widget class="QLabel" name="sectionTitle">
+         <property name="text">
+          <string>6. AGV 상태 표시</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="statusCardLayout">
+         <item>
+          <widget class="QFrame" name="cardAgv1">
+           <layout class="QVBoxLayout" name="cardAgv1Layout">
+            <item>
+             <widget class="QLabel" name="labelAgv1Title">
+              <property name="text">
+               <string>AGV_01</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAgv1State">
+              <property name="text">
+               <string>상태: -</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAgv1Node">
+              <property name="text">
+               <string>노드: - → -</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAgv1Battery">
+              <property name="text">
+               <string>배터리: -%</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAgv1Speed">
+              <property name="text">
+               <string>속도: - m/s</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="cardAgv2">
+           <layout class="QVBoxLayout" name="cardAgv2Layout">
+            <item>
+             <widget class="QLabel" name="labelAgv2Title">
+              <property name="text">
+               <string>AGV_02</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAgv2State">
+              <property name="text">
+               <string>상태: -</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAgv2Node">
+              <property name="text">
+               <string>노드: - → -</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAgv2Battery">
+              <property name="text">
+               <string>배터리: -%</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAgv2Speed">
+              <property name="text">
+               <string>속도: - m/s</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QSplitter" name="mapLogSplitter">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <widget class="QFrame" name="blankMapPanel">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>220</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="blankMapLayout">
+           <item>
+            <widget class="QLabel" name="labelBlankMap">
+             <property name="text">
+              <string>7. PURPLE / ORANGE / BLUE / GREEN / RED 동적 경로 지도</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QFrame" name="mqttLogPanel">
+          <property name="minimumSize">
+           <size>
+            <width>280</width>
+            <height>220</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>420</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="mqttLogLayout">
+           <item>
+            <layout class="QHBoxLayout" name="mqttLogHeaderLayout">
+             <item>
+              <widget class="QLabel" name="mqttLogTitle">
+               <property name="text">
+                <string>8. MQTT 송수신 로그</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="mqttLogHeaderSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnClearMqttLog">
+               <property name="text">
+                <string>표시 지우기</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="eventLog">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>route / command / route_ack / event 로그가 표시됩니다.</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="llmPanel">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>250</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="llmLayout">
+          <item>
+           <layout class="QHBoxLayout" name="llmHeaderLayout">
+            <item>
+             <widget class="QLabel" name="llmTitle">
+              <property name="text">
+               <string>9. AI 운행 설명</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="llmHeaderSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelLlmStatus">
+              <property name="text">
+               <string>GMS: 설정 확인 중</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="llmConversation">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="placeholderText">
+             <string>운행 로그에 대한 질문과 AI 설명이 표시됩니다.</string>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>150</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="llmControlLayout">
+            <item>
+             <widget class="QComboBox" name="llmRobotScope">
+              <item>
+               <property name="text">
+                <string>전체 AGV</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>AGV_01</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>AGV_02</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnExplainCurrent">
+              <property name="text">
+               <string>현재 상황 설명</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="llmQuestionInput">
+              <property name="placeholderText">
+               <string>예: AGV_02는 왜 BLUE에서 RED로 우회했어?</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnAskLlm">
+              <property name="text">
+               <string>질문</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnClearLlm">
+              <property name="text">
+               <string>대화 지우기</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources />
+ <connections />
+</ui>
