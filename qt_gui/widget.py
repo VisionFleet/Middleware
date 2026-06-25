@@ -190,7 +190,7 @@ LLM_CHAT_MAX_BLOCKS = int(os.getenv("QT_LLM_CHAT_MAX_BLOCKS", "500"))
 #   2) GMS_KEY 환경변수
 #   3) 아래 GMS_API_KEY_TEMP (로컬 발표 테스트 전용)
 # 실제 키를 넣은 파일은 Git/공유 ZIP에 포함하지 말 것.
-GMS_API_KEY_TEMP = "secret"
+GMS_API_KEY_TEMP = "실수했네 폐기"
 GMS_BASE_URL = os.getenv(
     "GMS_BASE_URL",
     "https://gms.ssafy.io/gmsapi/api.openai.com/v1",
